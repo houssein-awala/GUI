@@ -5,6 +5,8 @@
  */
 package gui;
 
+import gui.GUIviews.MainFrame;
+
 /**
  *
  * @author USER
@@ -16,6 +18,8 @@ public class GUI {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        MainFrame frame=new MainFrame();
+        frame.show();
     }
     
 }

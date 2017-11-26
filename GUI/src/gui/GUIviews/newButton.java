@@ -17,6 +17,7 @@ public class newButton extends JButton implements newComponent{
     newComponent child;
     public newButton(){
         super();
+        
     }
 
     @Override

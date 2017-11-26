@@ -13,4 +13,9 @@ import javax.swing.JButton;
  */
 public class draggedButton extends JButton{
     
+    public draggedButton(){
+        super("Button");
+        this.setLayout(null);
+        this.setBounds(10, 10, 90, 40);
+}
 }
