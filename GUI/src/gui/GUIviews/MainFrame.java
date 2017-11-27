@@ -5,6 +5,7 @@
  */
 package gui.GUIviews;
 
+import gui.GUIcontrollers.DragListener;
 import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -21,6 +22,8 @@ public class MainFrame extends JFrame{
         this.setSize(1200, 800);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null);
+        this.addMouseListener(new DragListener(this));
+        this.addMouseMotionListener(new DragListener(this));
         
         DragedPanel=new PanelDragedComponentContainer();
         this.add(DragedPanel);
@@ -29,4 +32,13 @@ public class MainFrame extends JFrame{
         this.add(DropPanel);
         
     }
+
+    public PanelDragedComponentContainer getDragedPanel() {
+        return DragedPanel;
+    }
+
+    public PanelToDropComponent getDropPanel() {
+        return DropPanel;
+    }
+    
 }
