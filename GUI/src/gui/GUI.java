@@ -20,6 +20,7 @@ public class GUI {
         // TODO code application logic here
         MainFrame frame=new MainFrame();
         frame.show();
+        
     }
     
 }

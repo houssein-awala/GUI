@@ -5,9 +5,11 @@
  */
 package gui.GUIcontrollers;
 
-import com.sun.org.apache.bcel.internal.Repository;
+import gui.GUImodels.newComponentFactory;
 import gui.GUIviews.MainFrame;
 import gui.GUIviews.dragedComponent;
+import gui.GUIviews.newComponent;
+import gui.GUIviews.newComponentClass;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -24,12 +26,17 @@ public class DragListener extends MouseAdapter{
     static JComponent c;
     static Point p;
     static boolean draged;
+    static boolean pressed;
+    static JComponent designC;
+    static newComponentFactory factory;
     public DragListener(){
         super();
     }
     public DragListener(MainFrame f){
         super();
-        this.f=f;
+        DragListener.f=f;
+        pressed=false;
+        factory=new newComponentFactory();
     }
     
     @Override
@@ -39,28 +46,32 @@ public class DragListener extends MouseAdapter{
         p=e.getPoint();
         c=(JComponent)e.getComponent();
         draged=false;
-        System.out.println(c.getClass());
+        pressed=true;
+        
     }
     
     @Override
     public void mouseDragged(MouseEvent e) {
+        if(pressed&&!draged)
+        {
+           designC=new JButton("add");
+            designC.setLayout(null);
+            f.add(designC,2,0);
+            designC.setSize(90, 40);
+            designC.setLocation(p);
+        }
         if(c==null)
             return;
         draged=true;
+        p=e.getPoint();
+
+        designC.setLocation(p);
+        
     }
     
     @Override
     public void mouseMoved(MouseEvent e) {
-        System.out.println(draged);
-        if(!draged)
-            return;
-        System.out.println("wow");
-        p=e.getPoint();
-        JComponent c=new JButton("add");
-        c.setLayout(null);
-        c.setSize(90, 40);
-        c.setLocation(p);
-        f.add(c);
+       
     }
     
     @Override
@@ -74,11 +85,17 @@ public class DragListener extends MouseAdapter{
          p=e.getPoint();
          if(f.getDropPanel().contains(p))
          {
-             //System.out.println("ghina");
+             newComponentClass newc=factory.createNew((dragedComponent)c);
+             newc.setLayout(null);
+             newc.setLocation(p);
+             f.getDropPanel().add(newc);
          }
-
+         System.out.println("removed");
        draged=false;
+       f.remove(designC);
+       designC=null;
        c=null;
        p=null;
+       pressed=false;
     }
 }
