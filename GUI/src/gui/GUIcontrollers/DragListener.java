@@ -8,7 +8,6 @@ package gui.GUIcontrollers;
 import gui.GUImodels.newComponentFactory;
 import gui.GUIviews.MainFrame;
 import gui.GUIviews.dragedComponent;
-import gui.GUIviews.newComponent;
 import gui.GUIviews.newComponentClass;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
@@ -83,19 +82,25 @@ public class DragListener extends MouseAdapter{
          if(!draged)
              return;
          p=e.getPoint();
-         if(f.getDropPanel().contains(p))
+
+         if(f.getDropPanel().contient(p))
          {
              newComponentClass newc=factory.createNew((dragedComponent)c);
              newc.setLayout(null);
+             newc.setSize(90, 40);
+            //newc.setLocation(((int)p.getX()-f.getDropPanel().getX()),((int)p.getY()-f.getDropPanel().getY()));
+            // newc.setLocation((p.getX()-f.getDropPanel().getX()),(p.getY()-f.getDropPanel().getY()));
              newc.setLocation(p);
+             System.out.println(newc.getClass().getSimpleName());
              f.getDropPanel().add(newc);
          }
-         System.out.println("removed");
        draged=false;
+       designC.setLocation(10000, 10000);
        f.remove(designC);
        designC=null;
        c=null;
        p=null;
        pressed=false;
+      //  System.out.println(f.getDropPanel().getComponents());
     }
 }
