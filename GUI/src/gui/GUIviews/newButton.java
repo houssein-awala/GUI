@@ -5,6 +5,8 @@
  */
 package gui.GUIviews;
 
+import java.awt.Component;
+import java.awt.PopupMenu;
 import javax.swing.JButton;
 
 
@@ -15,6 +17,22 @@ import javax.swing.JButton;
 public class newButton extends JButton implements newComponent{
     newComponent parent;
     newComponent child;
+    
+
+    @Override
+    public void add(Component comp, Object constraints) {
+        super.add(comp, constraints); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void add(PopupMenu popup) {
+        super.add(popup); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Component add(Component comp) {
+        return super.add(comp); //To change body of generated methods, choose Tools | Templates.
+    }
     public newButton(){
         super();
         
