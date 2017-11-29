@@ -8,7 +8,6 @@ package gui.GUImodels;
 import gui.GUIviews.dragedComponent;
 import gui.GUIviews.newButton;
 import gui.GUIviews.newComponent;
-import gui.GUIviews.newComponentClass;
 /**
  *
  * @author Hussein Awala
@@ -18,7 +17,7 @@ public class newComponentFactory {
     {
         
     }
-    public newComponentClass createNew(dragedComponent c)
+    public newComponent createNew(dragedComponent c)
     {
         String type=c.getClass().getSimpleName();
         switch(type)

@@ -5,7 +5,7 @@
  */
 package gui.GUIviews;
 
-import gui.GUIcontrollers.DragListener;
+import gui.GUIcontrollers.DragAndDropListener;
 import javax.swing.JButton;
 
 /**
@@ -18,7 +18,7 @@ public class draggedButton extends JButton implements dragedComponent{
         super("Button");
         this.setLayout(null);
         this.setBounds(10, 10, 90, 40);
-        this.addMouseListener(new DragListener());
-        this.addMouseMotionListener(new DragListener());
+        this.addMouseListener(new DragAndDropListener());
+        this.addMouseMotionListener(new DragAndDropListener());
 }
 }

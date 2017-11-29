@@ -12,7 +12,7 @@ import javax.swing.JButton;
  *
  * @author Hussein Awala
  */
-public class newButton extends newComponentClass{
+public class newButton extends JButton implements newComponent{
     newComponent parent;
     newComponent child;
     public newButton(){

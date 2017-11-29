@@ -5,7 +5,7 @@
  */
 package gui.GUIviews;
 
-import gui.GUIcontrollers.DragListener;
+import gui.GUIcontrollers.DragAndDropListener;
 import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -22,8 +22,8 @@ public class MainFrame extends JFrame{
         this.setSize(1200, 800);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null);
-        this.addMouseListener(new DragListener(this));
-        this.addMouseMotionListener(new DragListener(this));
+        this.addMouseListener(new DragAndDropListener(this));
+        this.addMouseMotionListener(new DragAndDropListener(this));
         
         DragedPanel=new PanelDragedComponentContainer();
         this.add(DragedPanel);

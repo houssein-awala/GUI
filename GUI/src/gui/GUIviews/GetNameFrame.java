@@ -5,14 +5,12 @@
  */
 package gui.GUIviews;
 
-import javax.swing.JComponent;
+import javax.swing.JFrame;
 
 /**
  *
  * @author Hussein Awala
  */
-public abstract class newComponentClass extends JComponent implements newComponent{
-
-    
+public class GetNameFrame extends JFrame{
     
 }

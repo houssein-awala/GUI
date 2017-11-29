@@ -8,18 +8,20 @@ package gui.GUIcontrollers;
 import gui.GUImodels.newComponentFactory;
 import gui.GUIviews.MainFrame;
 import gui.GUIviews.dragedComponent;
-import gui.GUIviews.newComponentClass;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Hussein Awala
  */
-public class DragListener extends MouseAdapter{
+public class DragAndDropListener extends MouseAdapter{
     
     static MainFrame f;
     static JComponent c;
@@ -28,12 +30,12 @@ public class DragListener extends MouseAdapter{
     static boolean pressed;
     static JComponent designC;
     static newComponentFactory factory;
-    public DragListener(){
+    public DragAndDropListener(){
         super();
     }
-    public DragListener(MainFrame f){
+    public DragAndDropListener(MainFrame f){
         super();
-        DragListener.f=f;
+        DragAndDropListener.f=f;
         pressed=false;
         factory=new newComponentFactory();
     }
@@ -85,14 +87,17 @@ public class DragListener extends MouseAdapter{
 
          if(f.getDropPanel().contient(p))
          {
-             newComponentClass newc=factory.createNew((dragedComponent)c);
-             newc.setLayout(null);
-             newc.setSize(90, 40);
-            //newc.setLocation(((int)p.getX()-f.getDropPanel().getX()),((int)p.getY()-f.getDropPanel().getY()));
-            // newc.setLocation((p.getX()-f.getDropPanel().getX()),(p.getY()-f.getDropPanel().getY()));
-             newc.setLocation(p);
-             System.out.println(newc.getClass().getSimpleName());
-             f.getDropPanel().add(newc);
+             String name=JOptionPane.showInputDialog("Enter the name");
+             if(name!=null)
+             {
+             gui.GUIviews.newComponent newc=factory.createNew((dragedComponent)c);
+             ((JButton)newc).setLayout(null);
+             ((JButton)newc).setSize(90, 40);
+             ((JButton)newc).setText(name);
+             ((JButton)newc).setLocation(((int)p.getX()-f.getDropPanel().getX()),((int)p.getY()-f.getDropPanel().getY()));
+             f.getDropPanel().add((JButton)newc);
+             f.getDropPanel().updateUI();
+             }
          }
        draged=false;
        designC.setLocation(10000, 10000);
@@ -101,6 +106,6 @@ public class DragListener extends MouseAdapter{
        c=null;
        p=null;
        pressed=false;
-      //  System.out.println(f.getDropPanel().getComponents());
+        System.out.println(f.getDropPanel().getComponents());
     }
 }
