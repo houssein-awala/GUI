@@ -6,8 +6,8 @@
 package gui.GUImodels;
 
 import gui.GUIviews.dragedComponent;
-import gui.GUIviews.newButton;
-import gui.GUIviews.newComponent;
+import javax.swing.JButton;
+import javax.swing.JComponent;
 /**
  *
  * @author Hussein Awala
@@ -17,13 +17,13 @@ public class newComponentFactory {
     {
         
     }
-    public newComponent createNew(dragedComponent c)
+    public JComponent createNew(dragedComponent c)
     {
         String type=c.getClass().getSimpleName();
         switch(type)
         {
             case "draggedButton":
-                return new newButton();
+                return new JButton();
             default:
                 return null;
         }
