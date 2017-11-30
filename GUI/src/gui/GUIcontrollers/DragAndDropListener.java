@@ -114,7 +114,7 @@ public class DragAndDropListener extends MouseAdapter{
              String name=JOptionPane.showInputDialog("Enter the name");
              if(name!=null)
              {
-             gui.GUIviews.newComponent newc=factory.createNew((dragedComponent)c);
+             JComponent newc=factory.createNew((dragedComponent)c);
              ((JButton)newc).setLayout(null);
              ((JButton)newc).setSize(90, 40);
              ((JButton)newc).setText(name);
@@ -125,7 +125,6 @@ public class DragAndDropListener extends MouseAdapter{
                  for (int i = 0; i < components.length; i++) {
                      if(contient(components[i],p))
                      {
-                         System.out.println("aa");
                          dropedIn=(JComponent)components[i];
                          break;
                      }
@@ -136,7 +135,6 @@ public class DragAndDropListener extends MouseAdapter{
                  f.getDropPanel().add((JButton)newc);
              }
              else{
-                 System.out.println("aaaaaaaaaaaaa");
                  dropedIn.add((JButton)newc);
              }
              f.getDropPanel().updateUI();
