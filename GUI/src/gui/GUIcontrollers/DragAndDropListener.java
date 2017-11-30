@@ -79,14 +79,27 @@ public class DragAndDropListener extends MouseAdapter{
         if(c==null)
             return;
         Component[] cc =f.getDropPanel().getComponents();
-        for (int i = 0; i < cc.length; i++) {
+        int i;
+        for (i = 0; i < cc.length; i++) {
               //  System.out.println(cc[i].getY()+" "+f.getDropPanel().getY()+" "+designC.getY());
-                if(Math.abs(cc[i].getY()+f.getDropPanel().getY()-designC.getY())<30)
+                if(Math.abs(cc[i].getY()+f.getDropPanel().getY()-designC.getY())<10)
                 {
                     f.getDropPanel().drawH((JComponent)cc[i], designC);
                     break;
                 }
             }
+        if(i==cc.length)
+            f.getDropPanel().drawH(null,null);
+        for (i = 0; i < cc.length; i++) {
+              //  System.out.println(cc[i].getY()+" "+f.getDropPanel().getY()+" "+designC.getY());
+                if(Math.abs(cc[i].getX()+f.getDropPanel().getX()-designC.getX())<10)
+                {
+                    f.getDropPanel().drawW((JComponent)cc[i], designC);
+                    break;
+                }
+            }
+        if(i==cc.length)
+            f.getDropPanel().drawW(null,null);
         draged=true;
         p=e.getPoint();
 
@@ -105,6 +118,8 @@ public class DragAndDropListener extends MouseAdapter{
 
     @Override
      public void mouseReleased(MouseEvent e) {
+         f.getDropPanel().drawH(null,null);
+         f.getDropPanel().drawW(null,null);
          if(!draged)
              return;
          p=e.getPoint();
