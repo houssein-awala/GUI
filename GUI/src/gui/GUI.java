@@ -6,6 +6,7 @@
 package gui;
 
 import gui.GUIviews.MainFrame;
+import javax.swing.JComponent;
 
 /**
  *
@@ -20,7 +21,7 @@ public class GUI {
         // TODO code application logic here
         MainFrame frame=new MainFrame();
         frame.show();
-        
+       // gui.GUIcontrollers.covertToText.toText(new JComponent() {});
     }
     
 }
