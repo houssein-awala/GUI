@@ -15,7 +15,8 @@ import javax.swing.JPanel;
  */
 public class PanelDragedComponentContainer extends JPanel{
     draggedButton button;
-    
+    draggedLabel label;
+    draggedTextField textfield;
     public PanelDragedComponentContainer(){
         super();
         this.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -24,5 +25,11 @@ public class PanelDragedComponentContainer extends JPanel{
         
         button=new draggedButton();
         this.add(button);
+        
+        label=new draggedLabel();
+        this.add(label);
+        
+        textfield=new draggedTextField();
+        this.add(textfield);
     }
 }

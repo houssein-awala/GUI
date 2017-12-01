@@ -8,15 +8,27 @@ package gui.GUIcontrollers;
 import gui.GUImodels.newComponentFactory;
 import gui.GUIviews.MainFrame;
 import gui.GUIviews.dragedComponent;
+import gui.GUIviews.draggedLabel;
+import java.awt.BasicStroke;
 import java.awt.Component;
+import java.awt.Event;
+import java.awt.MenuItem;
 import java.awt.Point;
+import java.awt.PopupMenu;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -68,7 +80,19 @@ public class DragAndDropListener extends MouseAdapter{
     public void mouseDragged(MouseEvent e) {
         if(pressed&&!draged)
         {
-           designC=new JButton("add");
+            switch(e.getComponent().getClass().getSimpleName())
+            {
+                case "draggedButton":
+                    designC=new JButton("add");
+                    break;
+                case "draggedLabel":
+                    designC=new JLabel("add");
+                    break;
+                case "draggedTextField":
+                    designC=new JTextField("add");
+                    break;
+            }
+           
             designC.setLayout(null);
             f.add(designC,2,0);
             designC.setSize(90, 40);
@@ -118,41 +142,99 @@ public class DragAndDropListener extends MouseAdapter{
 
     @Override
      public void mouseReleased(MouseEvent e) {
-         f.getDropPanel().drawH(null,null);
-         f.getDropPanel().drawW(null,null);
+         
          if(!draged)
              return;
          p=e.getPoint();
-
+            JComponent newc=null;
          if(f.getDropPanel().contient(p))
          {
              String name=JOptionPane.showInputDialog("Enter the name");
+             
              if(name!=null)
              {
-             JComponent newc=factory.createNew((dragedComponent)c);
-             ((JButton)newc).setLayout(null);
-             ((JButton)newc).setSize(90, 40);
-             ((JButton)newc).setText(name);
-             ((JButton)newc).setName(name);
-             ((JButton)newc).setLocation(((int)p.getX()-f.getDropPanel().getX()),((int)p.getY()-f.getDropPanel().getY()));
              JComponent dropedIn=null;
              Component[] components=f.getDropPanel().getComponents();
-                 for (int i = 0; i < components.length; i++) {
-                     if(contient(components[i],p))
-                     {
-                         dropedIn=(JComponent)components[i];
-                         break;
-                     }
-                 }
+             switch(c.getClass().getSimpleName())
+            {
+                case "draggedButton":
+                    newc=new JButton("add");
+                    ((JButton)newc).setLayout(null);
+                    ((JButton)newc).setSize(90, 40);
+                    ((JButton)newc).setText(name);
+                    ((JButton)newc).setName(name);
+                    ((JButton)newc).setLocation(((int)p.getX()-f.getDropPanel().getX()),((int)p.getY()-f.getDropPanel().getY()));
+                      for (int i = 0; i < components.length; i++) {
+                          if(contient(components[i],p))
+                             {
+                               dropedIn=(JComponent)components[i];
+                                 break;
+                          }
+                      }
              
-             if(dropedIn==null)
-             {
-                 f.getDropPanel().add((JButton)newc);
-             }
-             else{
-                 dropedIn.add((JButton)newc);
-             }
-             f.getDropPanel().updateUI();
+                    if(dropedIn==null)
+                    {
+                        f.getDropPanel().add((JButton)newc);
+                    }
+                   else{
+                        dropedIn.add((JButton)newc);
+                      }
+                     f.getDropPanel().updateUI();
+                    break;
+                case "draggedLabel":
+                    newc=new JLabel("add");
+                    ((JLabel)newc).setLayout(null);
+                    ((JLabel)newc).setSize(90, 40);
+                    ((JLabel)newc).setText(name);
+                    ((JLabel)newc).setName(name);
+                    ((JLabel)newc).setLocation(((int)p.getX()-f.getDropPanel().getX()),((int)p.getY()-f.getDropPanel().getY()));
+                    ((JLabel)newc).setBorder(BorderFactory.createDashedBorder(null));
+                      for (int i = 0; i < components.length; i++) {
+                          if(contient(components[i],p))
+                             {
+                               dropedIn=(JComponent)components[i];
+                                 break;
+                          }
+                      }
+             
+                    if(dropedIn==null)
+                    {
+                        f.getDropPanel().add((JLabel)newc);
+                    }
+                   else{
+                        dropedIn.add((JLabel)newc);
+                      }
+                     f.getDropPanel().updateUI();
+                    break;
+                    case "draggedTextField":
+                    newc=new JTextField("add");
+                    ((JTextField)newc).setLayout(null);
+                    ((JTextField)newc).setSize(90, 40);
+                    ((JTextField)newc).setText(name);
+                    ((JTextField)newc).setName(name);
+                    ((JTextField)newc).setLocation(((int)p.getX()-f.getDropPanel().getX()),((int)p.getY()-f.getDropPanel().getY()));
+                      for (int i = 0; i < components.length; i++) {
+                          if(contient(components[i],p))
+                             {
+                               dropedIn=(JTextField)components[i];
+                                 break;
+                          }
+                      }
+             
+                    if(dropedIn==null)
+                    {
+                        f.getDropPanel().add((JTextField)newc);
+                    }
+                   else{
+                        dropedIn.add((JButton)newc);
+                      }
+                     f.getDropPanel().updateUI();
+                    break;
+            }    
+             f.getDropPanel().drawH(null,null);
+             f.getDropPanel().drawW(null,null);
+             newc.addMouseListener(new MenuOnRightClick());
+             
          }
          }
        draged=false;
@@ -164,4 +246,5 @@ public class DragAndDropListener extends MouseAdapter{
        pressed=false;
         
     }
+    
 }

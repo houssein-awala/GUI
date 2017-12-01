@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui.GUIcontrollers;
+package gui.GUImodels;
 
 import javax.swing.JComponent;
 
@@ -20,5 +20,6 @@ public class covertToText {
         if(c==null)
             return;
         s+="";
+        
     }
 }
