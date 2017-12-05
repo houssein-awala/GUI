@@ -6,15 +6,18 @@
 package gui.GUIviews;
 
 import gui.GUIcontrollers.MenuOnRightClick;
+import gui.GUIcontrollers.MoveComponent;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Stroke;
+import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.xml.bind.Marshaller;
 
 /**
  *
@@ -34,6 +37,7 @@ public class PanelToDropComponent extends JPanel{
         this.setBounds(320,10,850,700);
         this.setBorder(BorderFactory.createLineBorder(Color.black));
         this.addMouseListener(new MenuOnRightClick());
+        
     }
     public boolean contient(Point p)
     {

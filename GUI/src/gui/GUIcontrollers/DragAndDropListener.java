@@ -73,7 +73,6 @@ public class DragAndDropListener extends MouseAdapter{
         c=(JComponent)e.getComponent();
         draged=false;
         pressed=true;
-        
     }
     
     @Override
@@ -223,10 +222,10 @@ public class DragAndDropListener extends MouseAdapter{
              
                     if(dropedIn==null)
                     {
-                        f.getDropPanel().add((JTextField)newc);
+                        f.getDropPanel().add((JComponent)newc);
                     }
                    else{
-                        dropedIn.add((JButton)newc);
+                        dropedIn.add((JComponent)newc);
                       }
                      f.getDropPanel().updateUI();
                     break;
@@ -234,6 +233,9 @@ public class DragAndDropListener extends MouseAdapter{
              f.getDropPanel().drawH(null,null);
              f.getDropPanel().drawW(null,null);
              newc.addMouseListener(new MenuOnRightClick());
+             MoveComponent mc=new MoveComponent(f);
+             newc.addMouseListener(mc);
+             newc.addMouseMotionListener(mc);
              
          }
          }
