@@ -21,7 +21,7 @@ public class PanelDragedComponentContainer extends JPanel{
         super();
         this.setBorder(BorderFactory.createLineBorder(Color.black));
         this.setLayout(null);
-        this.setBounds(10, 10, 300, 700);
+        this.setBounds(10, 100, 300, 700);
         
         button=new draggedButton();
         this.add(button);

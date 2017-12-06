@@ -34,7 +34,7 @@ public class PanelToDropComponent extends JPanel{
         super();
         flag=false;
         this.setLayout(null);
-        this.setBounds(320,10,850,700);
+        this.setBounds(320,100,850,700);
         this.setBorder(BorderFactory.createLineBorder(Color.black));
         this.addMouseListener(new MenuOnRightClick());
         

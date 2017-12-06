@@ -7,6 +7,7 @@ package gui.GUIcontrollers;
 
 import gui.GUIviews.MainFrame;
 import gui.GUIviews.PanelToDropComponent;
+import java.awt.Component;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -26,11 +27,16 @@ public class MoveComponent extends MouseAdapter{
     static boolean flag;
     static MainFrame f;
     static Point p;
-    
+    static boolean dragged;
+    static boolean resize;
+    static boolean L,R,U,D;
     public MoveComponent(MainFrame f) {
         super();
         flag=false;
         this.f=f;
+        dragged=false;
+        resize=false;
+        L=R=U=D=false;
     }
     
     @Override
@@ -40,11 +46,30 @@ public class MoveComponent extends MouseAdapter{
             return;
         if(e.getComponent().getClass().getSimpleName().equals("PanelToDropComponent"))
             return;
+        
+        int x=e.getX();
+        int y=e.getY();
+        System.out.println(x+" "+y);
+        System.out.println(e.getComponent().getWidth());
+        if(x<5)
+            L=true;
+        if(y<5)
+            U=true;
+        if(Math.abs(x-e.getComponent().getWidth())<5)
+            R=true;
+        if(Math.abs(y-e.getComponent().getHeight())<5)
+            D=true;
+        if(L||R||U||D)
+        {
+            dragged=false;
+            resize=true;
+            return;
+        }
             c1=(JComponent)e.getComponent().getParent();
             c1.remove(e.getComponent());
             c2=(JComponent)e.getComponent();
             p=c2.getLocation();
-              System.out.println(e.getPoint());
+            dragged=true;
             f.getDropPanel().add(c2,2,0);
     }
     
@@ -54,19 +79,63 @@ public class MoveComponent extends MouseAdapter{
             return;
         if(e.getComponent().getClass().getSimpleName().equals("PanelToDropComponent"))
             return;
-        int x=e.getXOnScreen()-(int)((double)e.getComponent().getWidth()/2);
-        int y=e.getYOnScreen()-(int)((double)e.getComponent().getHeight()/2);
-            c2.setLocation(x-f.getDropPanel().getX(),y-f.getDropPanel().getY());
+        if(dragged==true)
+        {
+        int x=e.getXOnScreen()-f.getDropPanel().getX()-(int)((double)e.getComponent().getWidth()/2);
+        int y=e.getYOnScreen()-f.getDropPanel().getY()-(int)((double)e.getComponent().getHeight()/2);
+        if(!f.getDropPanel().contient(new Point(x+f.getDropPanel().getX(), y+f.getDropPanel().getY())))
+        {
+            c2.setLocation(p);
+            return;
+        }
+            c2.setLocation(x,y);
+        }
+        else
+        {
+            if(resize==true)
+            {
+                Component resizeC=e.getComponent();
+                int x=e.getX();
+                int y=e.getY();
+                Point location=resizeC.getLocation();
+                if(R)
+                {
+                    resizeC.setSize(x, resizeC.getHeight());
+                }
+                if(D)
+                {
+                    resizeC.setSize(resizeC.getWidth(),y);
+                }
+                if(U&&L)
+                {
+                    resizeC.setBounds(location.x+x, location.y+y, resizeC.getWidth()-x, resizeC.getHeight()-y);
+                }
+                else
+                {
+                if(U)
+                {
+                    resizeC.setBounds(location.x, location.y+y, resizeC.getWidth(), resizeC.getHeight()-y);
+                }
+                if(L)
+                {
+                    resizeC.setBounds(location.x+x, location.y, resizeC.getWidth()-x, resizeC.getHeight());
+                }
+                }
+            }
+        }
             f.getDropPanel().updateUI();
 
-       // System.out.println(p);
     }
     
     
     
     @Override
     public void mouseReleased(MouseEvent e){
-        
+        if(L||R||U||D)
+        {
+            L=R=U=D=resize=false;
+            return;
+        }
         if(!flag)
             return;
         if(!f.getDropPanel().contient(new Point(e.getX(), e.getY())))
