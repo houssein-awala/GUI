@@ -50,5 +50,13 @@ public class MainFrame extends JFrame{
     public PanelToDropComponent getDropPanel() {
         return DropPanel;
     }
+
+    public void setDragedPanel(PanelDragedComponentContainer DragedPanel) {
+        this.DragedPanel = DragedPanel;
+    }
+
+    public void setDropPanel(PanelToDropComponent DropPanel) {
+        this.DropPanel = DropPanel;
+    }
     
 }

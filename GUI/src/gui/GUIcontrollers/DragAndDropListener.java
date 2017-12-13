@@ -69,7 +69,7 @@ public class DragAndDropListener extends MouseAdapter{
     public void mousePressed(MouseEvent e) {
         if(!(e.getComponent() instanceof dragedComponent))
             return;
-        p=e.getPoint();
+        p=new Point((int)(e.getXOnScreen()-f.getDragedPanel().getLocationOnScreen().getX()),(int)( e.getYOnScreen()-f.getDragedPanel().getLocationOnScreen().getY()));
         c=(JComponent)e.getComponent();
         draged=false;
         pressed=true;
@@ -95,7 +95,7 @@ public class DragAndDropListener extends MouseAdapter{
             designC.setLayout(null);
             f.add(designC,2,0);
             designC.setSize(90, 40);
-            designC.setLocation(p);
+            designC.setLocation(p.x+f.getDragedPanel().getX(),p.y+f.getDragedPanel().getY());
             
             
         }
@@ -124,8 +124,7 @@ public class DragAndDropListener extends MouseAdapter{
         if(i==cc.length)
             f.getDropPanel().drawW(null,null);
         draged=true;
-        p=e.getPoint();
-
+        p=new Point((int)(e.getXOnScreen()-f.getLocationOnScreen().getX()-9),(int)( e.getYOnScreen()-f.getLocationOnScreen().getY()-61));
         designC.setLocation(p);
         
     }
@@ -144,9 +143,10 @@ public class DragAndDropListener extends MouseAdapter{
          
          if(!draged)
              return;
-         p=e.getPoint();
+         p=new Point((int)(e.getXOnScreen()-f.getDropPanel().getLocationOnScreen().getX()),(int)( e.getYOnScreen()-f.getDropPanel().getLocationOnScreen().getY()));
+         System.out.println(p);
             JComponent newc=null;
-         if(f.getDropPanel().contient(p))
+         if(f.getDropPanel()._contient(p))
          {
              String name=JOptionPane.showInputDialog("Enter the name");
              
@@ -162,7 +162,8 @@ public class DragAndDropListener extends MouseAdapter{
                     ((JButton)newc).setSize(90, 40);
                     ((JButton)newc).setText(name);
                     ((JButton)newc).setName(name);
-                    ((JButton)newc).setLocation(((int)p.getX()-f.getDropPanel().getX()),((int)p.getY()-f.getDropPanel().getY()));
+                    ((JButton)newc).setLocation(p);
+                    //((JButton)newc).setLocation(p);
                       for (int i = 0; i < components.length; i++) {
                           if(contient(components[i],p))
                              {
@@ -186,7 +187,7 @@ public class DragAndDropListener extends MouseAdapter{
                     ((JLabel)newc).setSize(90, 40);
                     ((JLabel)newc).setText(name);
                     ((JLabel)newc).setName(name);
-                    ((JLabel)newc).setLocation(((int)p.getX()-f.getDropPanel().getX()),((int)p.getY()-f.getDropPanel().getY()));
+                    ((JLabel)newc).setLocation(p);
                     ((JLabel)newc).setBorder(BorderFactory.createDashedBorder(null));
                       for (int i = 0; i < components.length; i++) {
                           if(contient(components[i],p))
@@ -211,7 +212,7 @@ public class DragAndDropListener extends MouseAdapter{
                     ((JTextField)newc).setSize(90, 40);
                     ((JTextField)newc).setText(name);
                     ((JTextField)newc).setName(name);
-                    ((JTextField)newc).setLocation(((int)p.getX()-f.getDropPanel().getX()),((int)p.getY()-f.getDropPanel().getY()));
+                    ((JTextField)newc).setLocation(p);
                       for (int i = 0; i < components.length; i++) {
                           if(contient(components[i],p))
                              {

@@ -8,6 +8,7 @@ package gui.GUIcontrollers;
 import gui.GUIviews.MainFrame;
 import gui.GUIviews.PanelToDropComponent;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -40,6 +41,114 @@ public class MoveComponent extends MouseAdapter{
     }
     
     @Override
+    public void mouseMoved(MouseEvent e)
+    {
+         int x=e.getX();
+        int y=e.getY();
+        boolean L=R=U=D=false;
+        if(x<5)
+            L=true;
+        if(y<5)
+            U=true;
+        if(Math.abs(x-e.getComponent().getWidth())<5)
+            R=true;
+        if(Math.abs(y-e.getComponent().getHeight())<5)
+            D=true;
+        
+        if((L&&U)||(U&&R)||(R&&D)||(D&&L))
+        {
+            if(L&&U)
+            {
+                e.getComponent().setCursor(new Cursor(Cursor.NW_RESIZE_CURSOR));
+            }
+            if(U&&R)
+            {
+                e.getComponent().setCursor(new Cursor(Cursor.NE_RESIZE_CURSOR));
+            }
+            if(R&&D)
+            {
+                e.getComponent().setCursor(new Cursor(Cursor.SE_RESIZE_CURSOR));
+            }
+            if(D&&L)
+            {
+                e.getComponent().setCursor(new Cursor(Cursor.SW_RESIZE_CURSOR));
+            }
+        }
+        else
+        {
+            if(R||L)
+            {
+                e.getComponent().setCursor(new Cursor(Cursor.E_RESIZE_CURSOR));
+            }
+            else
+            {
+                if(U||D)
+                {
+                    e.getComponent().setCursor(new Cursor(Cursor.N_RESIZE_CURSOR));
+                }
+                else
+                {
+                   e.getComponent().setCursor(new Cursor(Cursor.HAND_CURSOR));
+                }
+            }
+        }
+    }
+    
+    @Override
+    public void mouseEntered(MouseEvent e)
+    {
+        int x=e.getX();
+        int y=e.getY();
+        boolean L=R=U=D=false;
+
+        if(x<5)
+            L=true;
+        if(y<5)
+            U=true;
+        if(Math.abs(x-e.getComponent().getWidth())<5)
+            R=true;
+        if(Math.abs(y-e.getComponent().getHeight())<5)
+            D=true;
+        
+        if((L&&U)||(U&&R)||(R&&D)||(D&&L))
+        {
+            if(L&&U)
+            {
+                e.getComponent().setCursor(new Cursor(Cursor.NW_RESIZE_CURSOR));
+            }
+            if(U&&R)
+            {
+                e.getComponent().setCursor(new Cursor(Cursor.NE_RESIZE_CURSOR));
+            }
+            if(R&&D)
+            {
+                e.getComponent().setCursor(new Cursor(Cursor.SE_RESIZE_CURSOR));
+            }
+            if(D&&L)
+            {
+                e.getComponent().setCursor(new Cursor(Cursor.SW_RESIZE_CURSOR));
+            }
+        }
+        else
+        {
+            if(R||L)
+            {
+                e.getComponent().setCursor(new Cursor(Cursor.E_RESIZE_CURSOR));
+            }
+            else
+            {
+                if(U||D)
+                {
+                    e.getComponent().setCursor(new Cursor(Cursor.N_RESIZE_CURSOR));
+                }
+                else
+                {
+                   e.getComponent().setCursor(new Cursor(Cursor.HAND_CURSOR));
+                }
+            }
+        }
+    }
+    @Override
     public void mousePressed(MouseEvent e)
     {
          if(SwingUtilities.isRightMouseButton(e))
@@ -49,8 +158,8 @@ public class MoveComponent extends MouseAdapter{
         
         int x=e.getX();
         int y=e.getY();
-        System.out.println(x+" "+y);
-        System.out.println(e.getComponent().getWidth());
+        //System.out.println(x+" "+y);
+        //System.out.println(e.getComponent().getWidth());
         if(x<5)
             L=true;
         if(y<5)
@@ -71,6 +180,7 @@ public class MoveComponent extends MouseAdapter{
             p=c2.getLocation();
             dragged=true;
             f.getDropPanel().add(c2,2,0);
+            System.out.println(dragged);
     }
     
     @Override
@@ -82,7 +192,7 @@ public class MoveComponent extends MouseAdapter{
         if(dragged==true)
         {
         int x=e.getXOnScreen()-f.getDropPanel().getX()-(int)((double)e.getComponent().getWidth()/2);
-        int y=e.getYOnScreen()-f.getDropPanel().getY()-(int)((double)e.getComponent().getHeight()/2);
+        int y=e.getYOnScreen()-f.getDropPanel().getY()-2*(int)((double)e.getComponent().getHeight());
         if(!f.getDropPanel().contient(new Point(x+f.getDropPanel().getX(), y+f.getDropPanel().getY())))
         {
             c2.setLocation(p);
