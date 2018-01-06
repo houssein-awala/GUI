@@ -5,39 +5,93 @@
  */
 package gui.GUImodels;
 
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Stack;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 /**
  *
  * @author Hussein Awala
  */
 public class CareTaker {
-    Stack<Momento> undo;
-    Stack<Momento> redo;
+    Stack<Memento> undo;
+    Stack<Memento> redo;
 
     public CareTaker() {
         this.undo = new Stack<>();
     }
     
-    public void add(Momento m)
+    public void add(Memento m)
     {
         undo.push(m);
         redo=null;
     }
-    public Momento UndoMomento(Momento m)
+    public Memento UndoMemento()
     {
         if(redo==null)
             redo=new Stack<>();
-        redo.push(m);
-        return undo.pop();
+        Memento m=undo.pop();
+        Memento m_redo=null;
+        switch(m.getAction())
+            {
+                case "add":
+                {
+                    m_redo=new Memento(m.getComponent(), "remove", m.getComponent().getParent());
+                    break;
+                }
+                case "remove":
+                {
+                    m_redo=new Memento(m.getComponent(), "remove", m.getComponent().getParent());
+                    break;
+                }
+                case "bounds":
+                {
+                    m_redo=new Memento(m.getComponent(), "bounds", new Rectangle(m.getComponent().getBounds()));
+                    break;
+                }
+            }
+        redo.push(m_redo);
+        return m;
         
     }
-    public Momento RedoMomento(Momento m)
+    public Memento RedoMemento()
     {
         if(redo==null||redo.isEmpty())
-            return m;
+            return null;
+        Memento m=redo.pop();
+        Memento m_undo=null;
+        switch(m.getAction())
+            {
+                case "add":
+                {
+                    m_undo=new Memento(m.getComponent(), "remove", m.getComponent().getParent());
+                    break;
+                }
+                case "remove":
+                {
+                    m_undo=new Memento(m.getComponent(), "remove", m.getComponent().getParent());
+                    break;
+                }
+                case "bounds":
+                {
+                    m_undo=new Memento(m.getComponent(), "bounds", new Rectangle(m.getComponent().getBounds()));
+                    break;
+                }
+            }
         undo.push(m);
-        return redo.pop();
+        return m;
+    }
+    
+    public boolean can_undo()
+    {
+        return !undo.isEmpty();
+    }
+    public boolean can_redo()
+    {
+        if(redo==null)
+            return false;
+        return !redo.isEmpty();
     }
 }

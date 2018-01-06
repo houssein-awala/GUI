@@ -33,6 +33,7 @@ public class deleteComponent implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(container==null||c==null)
             return;
+        f.getO().add(c, "remove", container);
         container.remove(c);
         f.getDropPanel().updateUI();
     }

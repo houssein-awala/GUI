@@ -10,6 +10,7 @@ import gui.GUIviews.PanelToDropComponent;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JButton;
@@ -155,7 +156,7 @@ public class MoveComponent extends MouseAdapter{
             return;
         if(e.getComponent().getClass().getSimpleName().equals("PanelToDropComponent"))
             return;
-        
+        f.getO().add((JComponent)e.getComponent(), "bounds",new Rectangle(((JComponent)e.getComponent()).getBounds()) );
         int x=e.getX();
         int y=e.getY();
         //System.out.println(x+" "+y);
@@ -233,6 +234,7 @@ public class MoveComponent extends MouseAdapter{
                 }
             }
         }
+        
             f.getDropPanel().updateUI();
 
     }
@@ -243,7 +245,7 @@ public class MoveComponent extends MouseAdapter{
     public void mouseReleased(MouseEvent e){
         if(L||R||U||D)
         {
-            L=R=U=D=resize=false;
+            L=R=U=D=resize=dragged=flag=false;
             return;
         }
         if(!flag)

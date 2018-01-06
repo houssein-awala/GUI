@@ -5,6 +5,7 @@
  */
 package gui.GUIcontrollers;
 
+import static gui.GUIcontrollers.MoveComponent.f;
 import gui.GUImodels.newComponentFactory;
 import gui.GUIviews.MainFrame;
 import gui.GUIviews.dragedComponent;
@@ -15,6 +16,7 @@ import java.awt.Event;
 import java.awt.MenuItem;
 import java.awt.Point;
 import java.awt.PopupMenu;
+import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
@@ -230,7 +232,8 @@ public class DragAndDropListener extends MouseAdapter{
                       }
                      f.getDropPanel().updateUI();
                     break;
-            }    
+            } 
+             f.getO().add(newc, "add",newc.getParent() );
              f.getDropPanel().drawH(null,null);
              f.getDropPanel().drawW(null,null);
              newc.addMouseListener(new MenuOnRightClick());

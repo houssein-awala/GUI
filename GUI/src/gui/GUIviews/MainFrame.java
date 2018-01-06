@@ -6,7 +6,8 @@
 package gui.GUIviews;
 
 import gui.GUIcontrollers.DragAndDropListener;
-import gui.GUImodels.Momento;
+import gui.GUImodels.Memento;
+import gui.GUImodels.Originator;
 import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -22,8 +23,8 @@ public class MainFrame extends JFrame{
     PanelDragedComponentContainer DragedPanel;
     PanelToDropComponent DropPanel;
     MyMenu menu;
-    Momento m;
-    
+    Memento m;
+    Originator o;
     public MainFrame(){
         this.setSize(1200, 900);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -37,10 +38,14 @@ public class MainFrame extends JFrame{
         DropPanel=new PanelToDropComponent();
         this.add(DropPanel);
         
-        menu=new MyMenu();
+        menu=new MyMenu(this);
         this.setJMenuBar(menu);
         
-        m=new Momento(DropPanel);
+        o=new Originator();
+    }
+
+    public Originator getO() {
+        return o;
     }
 
     public PanelDragedComponentContainer getDragedPanel() {

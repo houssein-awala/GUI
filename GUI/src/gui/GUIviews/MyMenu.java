@@ -21,11 +21,13 @@ public class MyMenu extends JMenuBar{
     private JMenu file;
     private JMenu edit;
     private JMenu about;
-    public MyMenu()
+    MainFrame f;
+    public MyMenu(MainFrame f)
     {
         file=new JMenu("File");
         edit=new JMenu("Edit");
         about=new JMenu("About");
+        this.f=f;
         
         JMenuItem undo=new JMenuItem("Undo");
         JMenuItem redo=new JMenuItem("Redo");
@@ -37,7 +39,8 @@ public class MyMenu extends JMenuBar{
         undo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("undo");
+                f.getO().undo();
+                f.getDropPanel().updateUI();
             }
         });
         
@@ -46,7 +49,8 @@ public class MyMenu extends JMenuBar{
         redo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("redo");
+                f.getO().redo();
+                f.getDropPanel().updateUI();
             }
         });
         
