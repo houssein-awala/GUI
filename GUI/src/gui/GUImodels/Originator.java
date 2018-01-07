@@ -6,8 +6,11 @@
 package gui.GUImodels;
 
 import java.awt.Rectangle;
+import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -59,6 +62,32 @@ public class Originator {
                     m.getComponent().setBounds((Rectangle)m.getParametre());
                     break;
                 }
+                case "text":
+                {
+                    switch(m.getComponent().getClass().getSimpleName())
+                    {
+                        case "JLabel":
+                        {
+                            ((JLabel)m.getComponent()).setText((String)m.getParametre());
+                            ((JLabel)m.getComponent()).setName((String)m.getParametre());
+                            break;
+                        }
+                        case "JButton":
+                        {
+                            ((JButton)m.getComponent()).setText((String)m.getParametre());
+                            ((JButton)m.getComponent()).setName((String)m.getParametre());
+                            break;
+                        }
+                        case "JTextField":
+                        {
+                        
+                            ((JTextField)m.getComponent()).setText((String)m.getParametre());
+                            ((JTextField)m.getComponent()).setName((String)m.getParametre());
+                            break;
+                        }
+                    }
+                    break;
+                }
             }
         }
     }
@@ -83,6 +112,32 @@ public class Originator {
                 case "bounds":
                 {
                     m.getComponent().setBounds((Rectangle)m.getParametre());
+                    break;
+                }
+                case "text":
+                {
+                    switch(m.getComponent().getClass().getSimpleName())
+                    {
+                        case "JLabel":
+                        {
+                            ((JLabel)m.getComponent()).setText((String)m.getParametre());
+                            ((JLabel)m.getComponent()).setName((String)m.getParametre());
+                            break;
+                        }
+                        case "JButton":
+                        {
+                            ((JButton)m.getComponent()).setText((String)m.getParametre());
+                            ((JButton)m.getComponent()).setName((String)m.getParametre());
+                            break;
+                        }
+                        case "JTextField":
+                        {
+                        
+                            ((JTextField)m.getComponent()).setText((String)m.getParametre());
+                            ((JTextField)m.getComponent()).setName((String)m.getParametre());
+                            break;
+                        }
+                    }
                     break;
                 }
             }

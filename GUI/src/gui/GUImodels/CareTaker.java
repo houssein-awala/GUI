@@ -8,8 +8,11 @@ package gui.GUImodels;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Stack;
+import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -43,12 +46,35 @@ public class CareTaker {
                 }
                 case "remove":
                 {
-                    m_redo=new Memento(m.getComponent(), "remove", m.getComponent().getParent());
+                    m_redo=new Memento(m.getComponent(), "add", m.getComponent().getParent());
                     break;
                 }
                 case "bounds":
                 {
                     m_redo=new Memento(m.getComponent(), "bounds", new Rectangle(m.getComponent().getBounds()));
+                    break;
+                }
+                case "text":
+                {
+                    switch(m.getComponent().getClass().getSimpleName())
+                    {
+                        case "JLabel":
+                        {
+                            m_redo=new Memento(m.getComponent(), "text", ((JLabel)m.getComponent()).getText());
+                            break;
+                        }
+                        case "JButton":
+                        {
+                            m_redo=new Memento(m.getComponent(), "text", ((JButton)m.getComponent()).getText());
+                            break;
+                        }
+                        case "JTextField":
+                        {
+                        
+                            m_redo=new Memento(m.getComponent(), "text", ((JTextField)m.getComponent()).getText());
+                            break;
+                        }
+                    }
                     break;
                 }
             }
@@ -77,6 +103,29 @@ public class CareTaker {
                 case "bounds":
                 {
                     m_undo=new Memento(m.getComponent(), "bounds", new Rectangle(m.getComponent().getBounds()));
+                    break;
+                }
+                case "text":
+                {
+                    switch(m.getComponent().getClass().getSimpleName())
+                    {
+                        case "JLabel":
+                        {
+                            m_undo=new Memento(m.getComponent(), "text", ((JLabel)m.getComponent()).getText());
+                            break;
+                        }
+                        case "JButton":
+                        {
+                            m_undo=new Memento(m.getComponent(), "text", ((JButton)m.getComponent()).getText());
+                            break;
+                        }
+                        case "JTextField":
+                        {
+                        
+                            m_undo=new Memento(m.getComponent(), "text", ((JTextField)m.getComponent()).getText());
+                            break;
+                        }
+                    }
                     break;
                 }
             }

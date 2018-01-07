@@ -11,6 +11,7 @@ import gui.GUIviews.MainFrame;
 import gui.GUIviews.dragedComponent;
 import gui.GUIviews.draggedLabel;
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Event;
 import java.awt.MenuItem;
@@ -28,6 +29,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
@@ -69,6 +71,7 @@ public class DragAndDropListener extends MouseAdapter{
     
     @Override
     public void mousePressed(MouseEvent e) {
+        System.out.println(e.getComponent());
         if(!(e.getComponent() instanceof dragedComponent))
             return;
         p=new Point((int)(e.getXOnScreen()-f.getDragedPanel().getLocationOnScreen().getX()),(int)( e.getYOnScreen()-f.getDragedPanel().getLocationOnScreen().getY()));
@@ -91,6 +94,11 @@ public class DragAndDropListener extends MouseAdapter{
                     break;
                 case "draggedTextField":
                     designC=new JTextField("add");
+                    break;
+                case "draggedPanel":
+                    designC=new JPanel();
+                    designC.setBorder(BorderFactory.createLineBorder(Color.black));
+                    System.out.println("7amala");
                     break;
             }
            
@@ -167,7 +175,7 @@ public class DragAndDropListener extends MouseAdapter{
                     ((JButton)newc).setLocation(p);
                     //((JButton)newc).setLocation(p);
                       for (int i = 0; i < components.length; i++) {
-                          if(contient(components[i],p))
+                          if(components[i].getClass().getSimpleName().equals("JPanel")&&contient(components[i],p))
                              {
                                dropedIn=(JComponent)components[i];
                                  break;
@@ -192,7 +200,7 @@ public class DragAndDropListener extends MouseAdapter{
                     ((JLabel)newc).setLocation(p);
                     ((JLabel)newc).setBorder(BorderFactory.createDashedBorder(null));
                       for (int i = 0; i < components.length; i++) {
-                          if(contient(components[i],p))
+                          if(components[i].getClass().getSimpleName().equals("JPanel")&&contient(components[i],p))
                              {
                                dropedIn=(JComponent)components[i];
                                  break;
@@ -216,7 +224,7 @@ public class DragAndDropListener extends MouseAdapter{
                     ((JTextField)newc).setName(name);
                     ((JTextField)newc).setLocation(p);
                       for (int i = 0; i < components.length; i++) {
-                          if(contient(components[i],p))
+                          if(components[i].getClass().getSimpleName().equals("JPanel")&&contient(components[i],p))
                              {
                                dropedIn=(JTextField)components[i];
                                  break;

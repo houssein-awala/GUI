@@ -17,6 +17,8 @@ public class PanelDragedComponentContainer extends JPanel{
     draggedButton button;
     draggedLabel label;
     draggedTextField textfield;
+    draggedPanel panel;
+    
     public PanelDragedComponentContainer(){
         super();
         this.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -31,5 +33,8 @@ public class PanelDragedComponentContainer extends JPanel{
         
         textfield=new draggedTextField();
         this.add(textfield);
+        
+        panel=new draggedPanel();
+        this.add(panel);
     }
 }
