@@ -37,4 +37,9 @@ public class PanelDragedComponentContainer extends JPanel{
         panel=new draggedPanel();
         this.add(panel);
     }
+
+    public draggedPanel getPanel() {
+        return panel;
+    }
+    
 }

@@ -5,6 +5,7 @@
  */
 package gui.GUIcontrollers;
 
+import static gui.GUIcontrollers.DragAndDropListener.p;
 import gui.GUIviews.MainFrame;
 import gui.GUIviews.PanelToDropComponent;
 import java.awt.Component;
@@ -24,7 +25,7 @@ import javax.swing.SwingUtilities;
  */
 public class MoveComponent extends MouseAdapter{
 
-    static JComponent c1;
+    static JPanel c1;
     static JComponent c2;
     static boolean flag;
     static MainFrame f;
@@ -32,6 +33,9 @@ public class MoveComponent extends MouseAdapter{
     static boolean dragged;
     static boolean resize;
     static boolean L,R,U,D;
+    static boolean drag_panel;
+    static JPanel panel;
+    static Point old_p;
     public MoveComponent(MainFrame f) {
         super();
         flag=false;
@@ -39,11 +43,15 @@ public class MoveComponent extends MouseAdapter{
         dragged=false;
         resize=false;
         L=R=U=D=false;
+        drag_panel=false;
+        panel=null;
     }
     
     @Override
     public void mouseMoved(MouseEvent e)
     {
+        if(dragged)
+            return;
          int x=e.getX();
         int y=e.getY();
         boolean L=R=U=D=false;
@@ -90,14 +98,32 @@ public class MoveComponent extends MouseAdapter{
                 else
                 {
                    e.getComponent().setCursor(new Cursor(Cursor.HAND_CURSOR));
+                  /* if(e.getComponent().getClass().getSimpleName().equals("JPanel"))
+                   {
+                       drag_panel=true;
+                       panel=(JPanel)e.getComponent();
+                       System.out.println("paneeeeeeeeeeeeeeeeeeeeeeeeeel");
+                   }*/
                 }
             }
         }
+    }
+    public boolean contient_screen(Component c,Point a)
+    {
+        double x=a.getX()-c.getLocationOnScreen().getX();
+        double y=a.getY()-c.getLocationOnScreen().getY();
+        if(x<=c.getWidth()&&y<=c.getHeight()&&x>=0&&y>=0)
+        {
+            return true;
+        }
+        return false;
     }
     
     @Override
     public void mouseEntered(MouseEvent e)
     {
+        if(dragged)
+            return;
         int x=e.getX();
         int y=e.getY();
         boolean L=R=U=D=false;
@@ -145,6 +171,12 @@ public class MoveComponent extends MouseAdapter{
                 else
                 {
                    e.getComponent().setCursor(new Cursor(Cursor.HAND_CURSOR));
+                   if(e.getComponent().getClass().getSimpleName().equals("JPanel"))
+                   {
+                    /*   drag_panel=true;
+                       panel=(JPanel)e.getComponent();
+                       System.out.println("paneeeeeeeeeeeeeeeeeeeeeeeeeel");*/
+                   }
                 }
             }
         }
@@ -152,6 +184,7 @@ public class MoveComponent extends MouseAdapter{
     @Override
     public void mousePressed(MouseEvent e)
     {
+        //System.out.println(e.getComponent().getParent());
          if(SwingUtilities.isRightMouseButton(e))
             return;
         if(e.getComponent().getClass().getSimpleName().equals("PanelToDropComponent"))
@@ -175,25 +208,31 @@ public class MoveComponent extends MouseAdapter{
             resize=true;
             return;
         }
-            c1=(JComponent)e.getComponent().getParent();
+        flag=true;
+            c1=(JPanel)e.getComponent().getParent();
             c1.remove(e.getComponent());
+           // System.out.println(c1);
             c2=(JComponent)e.getComponent();
             p=c2.getLocation();
+            old_p=new Point((int)(e.getLocationOnScreen().getX()-c1.getLocationOnScreen().getX()),(int)(e.getLocationOnScreen().getY()-c1.getLocationOnScreen().getY()));
             dragged=true;
+            c2.setLocation((int)(e.getLocationOnScreen().getX()-f.getDropPanel().getLocationOnScreen().getX()),(int)(e.getLocationOnScreen().getY()-f.getDropPanel().getLocationOnScreen().getY()));
             f.getDropPanel().add(c2,2,0);
-            System.out.println(dragged);
+
+           
     }
     
     @Override
     public void mouseDragged(MouseEvent e){
+        
         if(SwingUtilities.isRightMouseButton(e))
             return;
         if(e.getComponent().getClass().getSimpleName().equals("PanelToDropComponent"))
             return;
         if(dragged==true)
         {
-        int x=e.getXOnScreen()-f.getDropPanel().getX()-(int)((double)e.getComponent().getWidth()/2);
-        int y=e.getYOnScreen()-f.getDropPanel().getY()-2*(int)((double)e.getComponent().getHeight());
+        int x=(int)e.getXOnScreen()-(int)f.getDropPanel().getLocationOnScreen().getX();
+        int y=(int)e.getYOnScreen()-(int)f.getDropPanel().getLocationOnScreen().getY();
         if(!f.getDropPanel().contient(new Point(x+f.getDropPanel().getX(), y+f.getDropPanel().getY())))
         {
             c2.setLocation(p);
@@ -243,14 +282,18 @@ public class MoveComponent extends MouseAdapter{
     
     @Override
     public void mouseReleased(MouseEvent e){
+       // System.out.println(c1);
+        dragged=false;
         if(L||R||U||D)
         {
             L=R=U=D=resize=dragged=flag=false;
             return;
         }
         if(!flag)
+        {
             return;
-        if(!f.getDropPanel().contient(new Point(e.getX(), e.getY())))
+        }
+        if(!contient_screen(f.getDropPanel(),e.getLocationOnScreen()))
         {
             c1.add(c2);
             c2.setLocation(p);
@@ -258,13 +301,28 @@ public class MoveComponent extends MouseAdapter{
             return;
         }
        // f.getDropPanel().remove(c2);
-        System.out.println(e.getPoint());
-        JComponent c=(JComponent)e.getComponent();
-        System.out.println(c);
-        c2.setLocation(c2.getX(), c2.getY());
-        c1.add(c2);
+       Point point_screen=e.getLocationOnScreen();
+       JPanel a=f.getDropPanel();
+       Component[] components=f.getDropPanel().getComponents();
+      for (int i = 0; i < components.length; i++) {
+             if(components[i]!=c2&&components[i].getClass().getSimpleName().equals("JPanel")&&contient_screen(components[i],point_screen))
+            {
+                 a=(JPanel)components[i];
+                  break;
+                 }
+          }
+       a.add(c2);
+       a.updateUI();
+       c2.setLocation(new Point((int)(e.getLocationOnScreen().getX()-a.getLocationOnScreen().getX()),(int)(e.getLocationOnScreen().getY()-a.getLocationOnScreen().getY())));
+       // System.out.println(e.getPoint());
+       // JComponent c=(JComponent)e.getComponent();
+     //   System.out.println(c);
+       // c2.setLocation(c2.getX(), c2.getY());
+      //  a.add(c2);
        // System.out.println(c+" "+c2);
        // c2.setLocation(, 0);
+     //  c1.add(c2);
+       c1.updateUI();
        flag=false;
        c1=null;
        c2=null;

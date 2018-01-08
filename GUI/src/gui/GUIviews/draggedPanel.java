@@ -21,8 +21,7 @@ public class draggedPanel extends JPanel implements dragedComponent{
         this.setLayout(null);
         this.setBounds(10, 170, 100, 100);
         this.setBorder(BorderFactory.createLineBorder(Color.black));
-        this.setBackground(Color.blue);
-        //this.setOpaque(false);
+        this.setOpaque(false);
     }
     
 }

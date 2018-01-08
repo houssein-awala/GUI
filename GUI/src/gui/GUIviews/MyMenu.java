@@ -5,6 +5,7 @@
  */
 package gui.GUIviews;
 
+import gui.GUIcontrollers.save_load;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -28,6 +29,17 @@ public class MyMenu extends JMenuBar{
         edit=new JMenu("Edit");
         about=new JMenu("About");
         this.f=f;
+        
+        JMenuItem save=new JMenuItem("Save");
+        ActionListener save_action=new save_load(f, "save");
+        save.addActionListener(save_action);
+        
+        JMenuItem load=new JMenuItem("Load");
+        ActionListener load_action=new save_load(f, "load");
+        load.addActionListener(load_action);
+        
+        file.add(save);
+        file.add(load);
         
         JMenuItem undo=new JMenuItem("Undo");
         JMenuItem redo=new JMenuItem("Redo");

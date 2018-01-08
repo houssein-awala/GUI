@@ -8,6 +8,7 @@ package gui.GUIviews;
 import gui.GUIcontrollers.DragAndDropListener;
 import gui.GUImodels.Memento;
 import gui.GUImodels.Originator;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -25,6 +26,7 @@ public class MainFrame extends JFrame{
     MyMenu menu;
     Memento m;
     Originator o;
+    myToolBar toolbar;
     public MainFrame(){
         this.setSize(1200, 900);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,6 +44,9 @@ public class MainFrame extends JFrame{
         this.setJMenuBar(menu);
         
         o=new Originator();
+        
+        toolbar=new myToolBar(this);
+        this.add(toolbar,BorderLayout.NORTH);
     }
 
     public Originator getO() {
