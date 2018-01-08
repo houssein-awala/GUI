@@ -46,7 +46,7 @@ public class CareTaker {
                 }
                 case "remove":
                 {
-                    m_redo=new Memento(m.getComponent(), "add", m.getComponent().getParent());
+                    m_redo=new Memento(m.getComponent(), "add", m.getParametre());
                     break;
                 }
                 case "bounds":
@@ -98,7 +98,7 @@ public class CareTaker {
                 }
                 case "remove":
                 {
-                    m_undo=new Memento(m.getComponent(), "remove", m.getComponent().getParent());
+                    m_undo=new Memento(m.getComponent(), "add", m.getParametre());
                     break;
                 }
                 case "bounds":
@@ -135,7 +135,7 @@ public class CareTaker {
                     break;
                 }
             }
-        undo.push(m);
+        undo.push(m_undo);
         return m;
     }
     
