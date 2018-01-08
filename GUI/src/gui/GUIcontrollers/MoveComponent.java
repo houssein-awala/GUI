@@ -16,6 +16,7 @@ import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -37,7 +38,8 @@ public class MoveComponent extends MouseAdapter{
     static boolean drag_panel;
     static JPanel panel;
     static Point old_p;
-    public MoveComponent(MainFrame f) {
+    JComponent ccc;
+    public MoveComponent(MainFrame f,JComponent ccc) {
         super();
         flag=false;
         this.f=f;
@@ -46,12 +48,13 @@ public class MoveComponent extends MouseAdapter{
         L=R=U=D=false;
         drag_panel=false;
         panel=null;
+        this.ccc=ccc;
     }
     
     @Override
     public void mouseMoved(MouseEvent e)
     {
-        if(dragged)
+        if(dragged||c2!=null)
             return;
          int x=e.getX();
         int y=e.getY();
@@ -123,7 +126,7 @@ public class MoveComponent extends MouseAdapter{
     @Override
     public void mouseEntered(MouseEvent e)
     {
-        if(dragged)
+        if(dragged||c2!=null)
             return;
         int x=e.getX();
         int y=e.getY();
@@ -185,6 +188,8 @@ public class MoveComponent extends MouseAdapter{
     @Override
     public void mousePressed(MouseEvent e)
     {
+
+        c2=(JComponent)e.getComponent();
         //System.out.println(e.getComponent().getParent());
          if(SwingUtilities.isRightMouseButton(e))
             return;
@@ -225,7 +230,8 @@ public class MoveComponent extends MouseAdapter{
     
     @Override
     public void mouseDragged(MouseEvent e){
-        
+        if(c2!=null&&c2!=ccc)
+            return;
         if(SwingUtilities.isRightMouseButton(e))
             return;
         if(e.getComponent().getClass().getSimpleName().equals("PanelToDropComponent"))
@@ -272,6 +278,7 @@ public class MoveComponent extends MouseAdapter{
                     resizeC.setBounds(location.x+x, location.y, resizeC.getWidth()-x, resizeC.getHeight());
                 }
                 }
+                ((JPanel)(resizeC.getParent())).updateUI();
             }
         }
         
@@ -288,10 +295,12 @@ public class MoveComponent extends MouseAdapter{
         if(L||R||U||D)
         {
             L=R=U=D=resize=dragged=flag=false;
+            c2=null;
             return;
         }
         if(!flag)
         {
+            c2=null;
             return;
         }
         if(!contient_screen(f.getDropPanel(),e.getLocationOnScreen()))
@@ -299,6 +308,7 @@ public class MoveComponent extends MouseAdapter{
             c1.add(c2);
             c2.setLocation(p);
             f.getDropPanel().updateUI();
+            c2=null;
             return;
         }
        // f.getDropPanel().remove(c2);
@@ -310,7 +320,8 @@ public class MoveComponent extends MouseAdapter{
              if(components[i]!=c2&&components[i].getClass().getSimpleName().equals("JPanel")&&contient_screen(components[i],point_screen))
             {
                  a=(JPanel)components[i];
-                  break;
+                  components=a.getComponents();
+                  i=-1;
                  }
           }
        a.add(c2);

@@ -61,32 +61,32 @@ public class ReadObject {
                 case "JButton":
                 {
                     component=(JButton)in.readObject();
-                    component.addMouseListener(new MoveComponent(f));
-                    component.addMouseMotionListener(new MoveComponent(f));
+                    component.addMouseListener(new MoveComponent(f,component));
+                    component.addMouseMotionListener(new MoveComponent(f,component));
                     p.add(component);
                     break;
                 }
                 case "JLabel":
                 {
                     component=(JLabel)in.readObject();
-                    component.addMouseListener(new MoveComponent(f));
-                    component.addMouseMotionListener(new MoveComponent(f));
+                    component.addMouseListener(new MoveComponent(f,component));
+                    component.addMouseMotionListener(new MoveComponent(f,component));
                     p.add(component);
                     break;
                 }
                 case "JTextField":
                 {
                     component=(JTextField)in.readObject();
-                    component.addMouseListener(new MoveComponent(f));
-                    component.addMouseMotionListener(new MoveComponent(f));
+                    component.addMouseListener(new MoveComponent(f,component));
+                    component.addMouseMotionListener(new MoveComponent(f,component));
                     p.add(component);
                     break;
                 }
                 case "JPanel":
                 {
                     component=this.deserializePanel();
-                    component.addMouseListener(new MoveComponent(f));
-                    component.addMouseMotionListener(new MoveComponent(f));
+                    component.addMouseListener(new MoveComponent(f,component));
+                    component.addMouseMotionListener(new MoveComponent(f,component));
                     p.add(component);
                     break;
                 }
@@ -108,32 +108,32 @@ public class ReadObject {
                 case "JButton":
                 {
                     component=(JButton)in.readObject();
-                    component.addMouseListener(new MoveComponent(f));
-                    component.addMouseMotionListener(new MoveComponent(f));
+                    component.addMouseListener(new MoveComponent(f,component));
+                    component.addMouseMotionListener(new MoveComponent(f,component));
                     p.add(component);
                     break;
                 }
                 case "JLabel":
                 {
                     component=(JLabel)in.readObject();
-                    component.addMouseListener(new MoveComponent(f));
-                    component.addMouseMotionListener(new MoveComponent(f));
+                    component.addMouseListener(new MoveComponent(f,component));
+                    component.addMouseMotionListener(new MoveComponent(f,component));
                     p.add(component);
                     break;
                 }
                 case "JTextField":
                 {
                     component=(JTextField)in.readObject();
-                    component.addMouseListener(new MoveComponent(f));
-                    component.addMouseMotionListener(new MoveComponent(f));
+                    component.addMouseListener(new MoveComponent(f,component));
+                    component.addMouseMotionListener(new MoveComponent(f,component));
                     p.add(component);
                     break;
                 }
                 case "JPanel":
                 {
                     component=this.deserializePanel();
-                    component.addMouseListener(new MoveComponent(f));
-                    component.addMouseMotionListener(new MoveComponent(f));
+                    component.addMouseListener(new MoveComponent(f,component));
+                    component.addMouseMotionListener(new MoveComponent(f,component));
                     p.add(component);
                     break;
                 }

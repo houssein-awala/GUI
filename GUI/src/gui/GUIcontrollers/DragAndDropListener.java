@@ -196,10 +196,11 @@ public class DragAndDropListener extends MouseAdapter{
                           if(components[i].getClass().getSimpleName().equals("JPanel")&&contient_screen(components[i],e.getLocationOnScreen()))
                              {
                                dropedIn=(JPanel)components[i];
-                                 break;
+                               components=dropedIn.getComponents();
+                               i=-1;
                           }
                       }
-             
+                      
                     
                         dropedIn.add((JButton)newc,2,0);
                       p=new Point((int)(e.getLocationOnScreen().getX()-dropedIn.getLocationOnScreen().getX()),(int)((e.getLocationOnScreen().getY()-dropedIn.getLocationOnScreen().getY())));
@@ -218,7 +219,8 @@ public class DragAndDropListener extends MouseAdapter{
                           if(components[i].getClass().getSimpleName().equals("JPanel")&&contient_screen(components[i],e.getLocationOnScreen()))
                              {
                                dropedIn=(JPanel)components[i];
-                                 break;
+                               components=dropedIn.getComponents();
+                               i=-1;
                           }
                       }
              
@@ -238,9 +240,9 @@ public class DragAndDropListener extends MouseAdapter{
                       for (int i = 0; i < components.length; i++) {
                           if(components[i].getClass().getSimpleName().equals("JPanel")&&contient_screen(components[i],e.getLocationOnScreen()))
                              {
-                                 System.out.println("erucaaaaaaaaaaaaaaaaaaa");
                                dropedIn=(JPanel)components[i];
-                                 break;
+                               components=dropedIn.getComponents();
+                               i=-1;
                           }
                       }
              
@@ -261,9 +263,9 @@ public class DragAndDropListener extends MouseAdapter{
                       for (int i = 0; i < components.length; i++) {
                           if(components[i].getClass().getSimpleName().equals("JPanel")&&contient_screen(components[i],e.getLocationOnScreen()))
                              {
-                                 System.out.println("erucaaaaaaaaaaaaaaaaaaa");
                                dropedIn=(JPanel)components[i];
-                                 break;
+                               components=dropedIn.getComponents();
+                               i=-1;
                           }
                       }
              
@@ -280,9 +282,8 @@ public class DragAndDropListener extends MouseAdapter{
              f.getDropPanel().drawH(null,null);
              f.getDropPanel().drawW(null,null);
              newc.addMouseListener(new MenuOnRightClick());
-             MoveComponent mc=new MoveComponent(f);
-             newc.addMouseListener(mc);
-             newc.addMouseMotionListener(mc);
+             newc.addMouseListener(new MoveComponent(f,newc));
+             newc.addMouseMotionListener(new MoveComponent(f,newc));
              
          }
          }
