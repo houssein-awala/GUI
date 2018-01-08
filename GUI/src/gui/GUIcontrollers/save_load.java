@@ -7,6 +7,8 @@ package gui.GUIcontrollers;
 
 import gui.GUIviews.MainFrame;
 import gui.GUIviews.PanelToDropComponent;
+import gui.serialization.ReadObject;
+import gui.serialization.WriteObject;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -40,55 +42,29 @@ public class save_load implements ActionListener{
         {
             case "save":
             {
-              //  System.out.println("tst");
-               // JFileChooser saveFile = new JFileChooser();
-                //int result=saveFile.showSaveDialog(f);
-                 //if (result == JFileChooser.APPROVE_OPTION) {
-                     
-                   //  File file = saveFile.getSelectedFile();
-                     
-                     try {
-                          FileOutputStream fileOut =
-                          new FileOutputStream("file.txt");
-                            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-                            out.writeObject(f.getDropPanel());
-                             out.close();
-                            fileOut.close();
-                           //  System.out.printf("Serialized data is saved in "+file.getPath());
-                       } catch (IOException i) {
-                          i.printStackTrace();
-                       }
-                     
-                     
-              //   }
-                     
+            try {
+                WriteObject w=new WriteObject();
+                w.serializePanel(f.getDropPanel());
+            } catch (IOException ex) {
+                Logger.getLogger(save_load.class.getName()).log(Level.SEVERE, null, ex);
+            }
                 
                 break;
             }
             case "load":
             {
-                System.out.println(action);
-                try {
-                          FileInputStream fileIn = new FileInputStream("file.txt");
-                            ObjectInputStream in = new ObjectInputStream(fileIn);
-                            PanelToDropComponent p=(PanelToDropComponent)in.readObject();
-                            System.out.println(p);
-                            System.out.println(f.getDropPanel());
-                            f.setDropPanel(p);
-                            
-                            f.getDropPanel().updateUI();
-                             in.close();
-                            fileIn.close();
-                             
-                       } catch (IOException i) {
-                           System.out.println("sss");
-                          i.printStackTrace();
-                       } catch (ClassNotFoundException ex) {
-                           System.out.println("bbb");
+            try {
+                ReadObject r=new ReadObject(f);
+                f.setDropPanel((PanelToDropComponent)r.deserialize());
+            } catch (IOException ex) {
                 Logger.getLogger(save_load.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(save_load.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                break;
             }
             }
         }
     }
     
-}
+

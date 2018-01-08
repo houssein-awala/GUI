@@ -129,11 +129,7 @@ public class CareTaker {
                     }
                     break;
                 }
-                case "move":
-                {
-                    m_undo=new Memento(m.getComponent(), "move", m.getComponent().getParent());
-                    break;
-                }
+                
             }
         undo.push(m_undo);
         return m;

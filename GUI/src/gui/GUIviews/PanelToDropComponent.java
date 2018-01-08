@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseMotionListener;
+import java.io.Serializable;
 import java.util.Stack;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
