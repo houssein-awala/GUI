@@ -6,6 +6,7 @@
 package gui.GUIcontrollers;
 
 import static gui.GUIcontrollers.DragAndDropListener.p;
+import gui.GUImodels.parametre_move;
 import gui.GUIviews.MainFrame;
 import gui.GUIviews.PanelToDropComponent;
 import java.awt.Component;
@@ -189,7 +190,7 @@ public class MoveComponent extends MouseAdapter{
             return;
         if(e.getComponent().getClass().getSimpleName().equals("PanelToDropComponent"))
             return;
-        f.getO().add((JComponent)e.getComponent(), "bounds",new Rectangle(((JComponent)e.getComponent()).getBounds()) );
+        f.getO().add((JComponent)e.getComponent(), "bounds",new parametre_move( new Rectangle(((JComponent)e.getComponent()).getBounds()),((JComponent)e.getComponent()).getParent()) );
         int x=e.getX();
         int y=e.getY();
         //System.out.println(x+" "+y);
@@ -301,6 +302,7 @@ public class MoveComponent extends MouseAdapter{
             return;
         }
        // f.getDropPanel().remove(c2);
+       //f.getO().add((JComponent)e.getComponent(), "move", e.getComponent().getParent());
        Point point_screen=e.getLocationOnScreen();
        JPanel a=f.getDropPanel();
        Component[] components=f.getDropPanel().getComponents();

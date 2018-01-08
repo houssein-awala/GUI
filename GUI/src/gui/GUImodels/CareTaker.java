@@ -51,7 +51,7 @@ public class CareTaker {
                 }
                 case "bounds":
                 {
-                    m_redo=new Memento(m.getComponent(), "bounds", new Rectangle(m.getComponent().getBounds()));
+                    m_redo=new Memento(m.getComponent(), "bounds", new parametre_move(m.getComponent().getBounds(),m.getComponent().getParent()));
                     break;
                 }
                 case "text":
@@ -77,6 +77,7 @@ public class CareTaker {
                     }
                     break;
                 }
+               
             }
         redo.push(m_redo);
         return m;
@@ -102,7 +103,7 @@ public class CareTaker {
                 }
                 case "bounds":
                 {
-                    m_undo=new Memento(m.getComponent(), "bounds", new Rectangle(m.getComponent().getBounds()));
+                    m_undo=new Memento(m.getComponent(), "bounds", new parametre_move(m.getComponent().getBounds(),m.getComponent().getParent()));
                     break;
                 }
                 case "text":
@@ -126,6 +127,11 @@ public class CareTaker {
                             break;
                         }
                     }
+                    break;
+                }
+                case "move":
+                {
+                    m_undo=new Memento(m.getComponent(), "move", m.getComponent().getParent());
                     break;
                 }
             }

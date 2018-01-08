@@ -59,7 +59,12 @@ public class Originator {
                 }
                 case "bounds":
                 {
-                    m.getComponent().setBounds((Rectangle)m.getParametre());
+                    m.getComponent().setBounds(((parametre_move)m.getParametre()).getR());
+                    JPanel a=((JPanel)(m.getComponent()).getParent());
+                    (m.getComponent()).getParent().remove(m.getComponent());
+                    a.updateUI();
+                    ((JPanel)((parametre_move)m.getParametre()).getC()).add(m.getComponent());
+                    ((JPanel)((parametre_move)m.getParametre()).getC()).updateUI();
                     break;
                 }
                 case "text":
@@ -88,6 +93,47 @@ public class Originator {
                     }
                     break;
                 }
+                case "move":
+                {
+                    switch(m.getComponent().getClass().getSimpleName())
+                    {
+                        case "JLabel":
+                        {
+                            ((JLabel)m.getComponent()).getParent().remove((JLabel)m.getComponent());
+                            ((JPanel)(((JLabel)m.getComponent()).getParent())).updateUI();
+                            ((JPanel)m.getParametre()).add((JLabel)m.getComponent());
+                            ((JPanel)m.getParametre()).updateUI();
+                            break;
+                        }
+                        case "JButton":
+                        {
+                            ((JButton)m.getComponent()).getParent().remove((JButton)m.getComponent());
+                            ((JPanel)(((JButton)m.getComponent()).getParent())).updateUI();
+                            ((JPanel)m.getParametre()).add((JButton)m.getComponent());
+                            ((JPanel)m.getParametre()).updateUI();
+                            break;
+                        }
+                        case "JTextField":
+                        {
+                        
+                            ((JTextField)m.getComponent()).getParent().remove((JTextField)m.getComponent());
+                            ((JPanel)(((JTextField)m.getComponent()).getParent())).updateUI();
+                            ((JPanel)m.getParametre()).add((JTextField)m.getComponent());
+                            ((JPanel)m.getParametre()).updateUI();
+                            break;
+                        }
+                        case "JPanel":
+                        {
+                        
+                            ((JPanel)m.getComponent()).getParent().remove((JPanel)m.getComponent());
+                            ((JPanel)(((JPanel)m.getComponent()).getParent())).updateUI();
+                            ((JPanel)m.getParametre()).add((JPanel)m.getComponent());
+                            ((JPanel)m.getParametre()).updateUI();
+                            break;
+                        }
+                    }
+                    break;
+                }
             }
         }
     }
@@ -111,7 +157,12 @@ public class Originator {
                 }
                 case "bounds":
                 {
-                    m.getComponent().setBounds((Rectangle)m.getParametre());
+                    m.getComponent().setBounds(((parametre_move)m.getParametre()).getR());
+                    JPanel a=((JPanel)(m.getComponent()).getParent());
+                    (m.getComponent()).getParent().remove(m.getComponent());
+                    a.updateUI();
+                    ((JPanel)((parametre_move)m.getParametre()).getC()).add(m.getComponent());
+                    ((JPanel)((parametre_move)m.getParametre()).getC()).updateUI();
                     break;
                 }
                 case "text":
@@ -135,6 +186,47 @@ public class Originator {
                         
                             ((JTextField)m.getComponent()).setText((String)m.getParametre());
                             ((JTextField)m.getComponent()).setName((String)m.getParametre());
+                            break;
+                        }
+                    }
+                    break;
+                }
+                case "move":
+                {
+                    switch(m.getComponent().getClass().getSimpleName())
+                    {
+                        case "JLabel":
+                        {
+                            ((JLabel)m.getComponent()).getParent().remove((JLabel)m.getComponent());
+                            ((JPanel)(((JLabel)m.getComponent()).getParent())).updateUI();
+                            ((JPanel)m.getParametre()).add((JLabel)m.getComponent());
+                            ((JPanel)m.getParametre()).updateUI();
+                            break;
+                        }
+                        case "JButton":
+                        {
+                            ((JButton)m.getComponent()).getParent().remove((JButton)m.getComponent());
+                            ((JPanel)(((JButton)m.getComponent()).getParent())).updateUI();
+                            ((JPanel)m.getParametre()).add((JButton)m.getComponent());
+                            ((JPanel)m.getParametre()).updateUI();
+                            break;
+                        }
+                        case "JTextField":
+                        {
+                        
+                            ((JTextField)m.getComponent()).getParent().remove((JTextField)m.getComponent());
+                            ((JPanel)(((JTextField)m.getComponent()).getParent())).updateUI();
+                            ((JPanel)m.getParametre()).add((JTextField)m.getComponent());
+                            ((JPanel)m.getParametre()).updateUI();
+                            break;
+                        }
+                        case "JPanel":
+                        {
+                        
+                            ((JPanel)m.getComponent()).getParent().remove((JPanel)m.getComponent());
+                            ((JPanel)(((JPanel)m.getComponent()).getParent())).updateUI();
+                            ((JPanel)m.getParametre()).add((JPanel)m.getComponent());
+                            ((JPanel)m.getParametre()).updateUI();
                             break;
                         }
                     }
