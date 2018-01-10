@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 
 /**
  *
@@ -45,8 +46,7 @@ public class MainFrame extends JFrame{
         
         o=new Originator();
         
-        toolbar=new myToolBar(this);
-        this.add(toolbar,BorderLayout.NORTH);
+       
     }
 
     public Originator getO() {

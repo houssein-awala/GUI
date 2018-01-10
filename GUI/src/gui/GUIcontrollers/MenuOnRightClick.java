@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
@@ -75,6 +76,12 @@ public class MenuOnRightClick extends MouseAdapter{
                                   f.getO().add((JComponent)(e.getComponent()), "text", ((JTextField)e.getComponent()).getText());
                                   ((JTextField)e.getComponent()).setName(name);
                                     ((JTextField)e.getComponent()).setText(name);
+                                    break;
+                              }
+                              case "JPanel":
+                              {
+                                  f.getO().add((JComponent)(e.getComponent()), "text", ((JPanel)e.getComponent()).getName());
+                                  ((JPanel)e.getComponent()).setName(name);
                                     break;
                               }
                           }

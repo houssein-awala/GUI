@@ -7,7 +7,11 @@ package gui.GUIcontrollers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -26,7 +30,28 @@ public class changeText implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+        switch(c.getClass().getSimpleName())
+        {
+            case "JButton":
+            {
+                ((JButton)c).setText(s);
+                ((JButton)c).setName(s);
+            }
+            case "JLabel":
+            {
+                ((JLabel)c).setText(s);
+                ((JLabel)c).setName(s);
+            }
+            case "JTextField":
+            {
+                ((JTextField)c).setText(s);
+                ((JTextField)c).setName(s);
+            }
+            case "JPanel":
+            {
+                ((JPanel)c).setName(s);
+            }
+        }
     }
     
 }

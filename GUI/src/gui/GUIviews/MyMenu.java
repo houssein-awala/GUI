@@ -34,6 +34,20 @@ public class MyMenu extends JMenuBar{
         about=new JMenu("About");
         this.f=f;
         
+        JMenuItem New=new JMenuItem("New");
+        file.add(New);
+        New.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                f.remove(f.getDropPanel());
+                f.setDropPanel(new PanelToDropComponent());
+                f.add(f.getDropPanel());
+                f.repaint();
+            }
+        });
+        KeyStroke keyStrokeToNew= KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK);
+        New.setAccelerator(keyStrokeToNew);
+        
         JMenuItem save=new JMenuItem("Save");
         ActionListener save_action=new save_load(f, "save");
         save.addActionListener(save_action);

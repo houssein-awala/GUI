@@ -9,6 +9,7 @@ import gui.GUIcontrollers.save_load;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.awt.event.ActionListener;
+import javafx.scene.control.ToolBar;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
@@ -23,8 +24,9 @@ public class myToolBar extends JToolBar{
     MainFrame f;
 
     public myToolBar(MainFrame f) {
-      //  super();
+        super("toolbar",JToolBar.HORIZONTAL);
         this.f=f;
+        this.setVisible(true);
         
         save=new JButton("save");
         

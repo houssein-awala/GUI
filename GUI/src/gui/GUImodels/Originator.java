@@ -90,6 +90,12 @@ public class Originator {
                             ((JTextField)m.getComponent()).setName((String)m.getParametre());
                             break;
                         }
+                        case "JPanel":
+                        {
+                        
+                            ((JPanel)m.getComponent()).setName((String)m.getParametre());
+                            break;
+                        }
                     }
                     break;
                 }
