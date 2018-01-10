@@ -6,7 +6,10 @@
 package gui.GUIviews;
 
 import gui.GUIcontrollers.save_load;
+import java.awt.GridLayout;
+import java.awt.LayoutManager;
 import java.awt.event.ActionListener;
+import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 
@@ -27,9 +30,15 @@ public class myToolBar extends JToolBar{
         
         
         load=new JButton("load");
+        
+        this.add(save);
+        this.add(load);
+        
         this.setFloatable(false);
         this.setRollover(true);
         this.addSeparator();
+        
+        this.setLayout(new GridLayout());
     }
     
     

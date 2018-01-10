@@ -26,16 +26,17 @@ import javax.swing.JTextField;
  * @author Hussein Awala
  */
 public class ReadObject {
-    FileInputStream fileIn;
-    ObjectInputStream in;
-    MainFrame f;
-    public ReadObject(MainFrame f) {
+
+    public PanelToDropComponent deserialize() throws IOException, ClassNotFoundException
+    {
+     
         FileInputStream fileIn = null;
         try {
             fileIn = new FileInputStream("file.txt");
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            this.f=f;
-            System.out.println("ssssssssssssssssssssss");
+            PanelToDropComponent p=(PanelToDropComponent)(in.readObject());
+            
+            return p;
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ReadObject.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -47,100 +48,6 @@ public class ReadObject {
                 Logger.getLogger(ReadObject.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    }
-    
-    public JPanel deserializePanel() throws IOException, ClassNotFoundException
-    {
-        JPanel p=(JPanel)in.readObject();
-        int l=(Integer)in.readObject();
-        for (int i = 0; i < l; i++) {
-            String c=(String)in.readObject();
-            JComponent component=null;
-            switch(c)
-            {
-                case "JButton":
-                {
-                    component=(JButton)in.readObject();
-                    component.addMouseListener(new MoveComponent(f,component));
-                    component.addMouseMotionListener(new MoveComponent(f,component));
-                    p.add(component);
-                    break;
-                }
-                case "JLabel":
-                {
-                    component=(JLabel)in.readObject();
-                    component.addMouseListener(new MoveComponent(f,component));
-                    component.addMouseMotionListener(new MoveComponent(f,component));
-                    p.add(component);
-                    break;
-                }
-                case "JTextField":
-                {
-                    component=(JTextField)in.readObject();
-                    component.addMouseListener(new MoveComponent(f,component));
-                    component.addMouseMotionListener(new MoveComponent(f,component));
-                    p.add(component);
-                    break;
-                }
-                case "JPanel":
-                {
-                    component=this.deserializePanel();
-                    component.addMouseListener(new MoveComponent(f,component));
-                    component.addMouseMotionListener(new MoveComponent(f,component));
-                    p.add(component);
-                    break;
-                }
-            }
-            
-        }
-        
-        return p;
-    }
-    public PanelToDropComponent deserialize() throws IOException, ClassNotFoundException
-    {
-        PanelToDropComponent p=(PanelToDropComponent)in.readObject();
-        int l=(Integer)in.readObject();
-        for (int i = 0; i < l; i++) {
-            String c=(String)in.readObject();
-            JComponent component=null;
-            switch(c)
-            {
-                case "JButton":
-                {
-                    component=(JButton)in.readObject();
-                    component.addMouseListener(new MoveComponent(f,component));
-                    component.addMouseMotionListener(new MoveComponent(f,component));
-                    p.add(component);
-                    break;
-                }
-                case "JLabel":
-                {
-                    component=(JLabel)in.readObject();
-                    component.addMouseListener(new MoveComponent(f,component));
-                    component.addMouseMotionListener(new MoveComponent(f,component));
-                    p.add(component);
-                    break;
-                }
-                case "JTextField":
-                {
-                    component=(JTextField)in.readObject();
-                    component.addMouseListener(new MoveComponent(f,component));
-                    component.addMouseMotionListener(new MoveComponent(f,component));
-                    p.add(component);
-                    break;
-                }
-                case "JPanel":
-                {
-                    component=this.deserializePanel();
-                    component.addMouseListener(new MoveComponent(f,component));
-                    component.addMouseMotionListener(new MoveComponent(f,component));
-                    p.add(component);
-                    break;
-                }
-            }
-            
-        }
-        
-        return p;
+        return null;
     }
 }

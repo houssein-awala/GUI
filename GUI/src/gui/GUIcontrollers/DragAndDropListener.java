@@ -260,6 +260,7 @@ public class DragAndDropListener extends MouseAdapter{
                     ((JPanel)newc).setSize(100, 100);
                     ((JPanel)newc).setLocation(p);
                     ((JPanel)newc).setBorder(BorderFactory.createLineBorder(Color.black));
+                    ((JPanel)newc).setName(name);
                       for (int i = 0; i < components.length; i++) {
                           if(components[i].getClass().getSimpleName().equals("JPanel")&&contient_screen(components[i],e.getLocationOnScreen()))
                              {

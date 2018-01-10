@@ -20,41 +20,14 @@ import javax.swing.JPanel;
  */
 public class WriteObject {
 
-    FileOutputStream fileOut;
-    ObjectOutputStream out;
-    
-    public WriteObject() throws FileNotFoundException, IOException{
-        fileOut =new FileOutputStream("file.txt");
-        out = new ObjectOutputStream(fileOut);
-    }
-    
+   
     public void serializePanel(JPanel panel) throws FileNotFoundException, IOException
     {
-            out.writeObject(panel);
-            
-            Component[] c=panel.getComponents();
-            int l=c.length;
-            out.writeObject(l);
-            
-            for (int i = 0; i < l; i++) {
-            if(c[i] instanceof JPanel)
-            {
-                out.writeObject("JPanel");
-                this.serializePanel((JPanel)c[i]);
-            }
-            else
-            {
-                out.writeObject(c[i].getClass().getSimpleName());
-                out.writeObject(c[i]);
-            }
-            
-          }
-            
-            
-            
-            
-            out.close();
-            fileOut.close();
         
+    FileOutputStream fileOut=new FileOutputStream("file.txt");
+    ObjectOutputStream out= new ObjectOutputStream(fileOut);
+    out.writeObject((PanelToDropComponent)panel);
+    out.close();
+    fileOut.close(); 
     }
 }

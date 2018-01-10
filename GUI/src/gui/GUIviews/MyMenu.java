@@ -6,9 +6,13 @@
 package gui.GUIviews;
 
 import gui.GUIcontrollers.save_load;
+import gui.GUImodels.convertToText;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -33,13 +37,30 @@ public class MyMenu extends JMenuBar{
         JMenuItem save=new JMenuItem("Save");
         ActionListener save_action=new save_load(f, "save");
         save.addActionListener(save_action);
-        
+         KeyStroke keyStrokeToSave= KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK);
+        save.setAccelerator(keyStrokeToSave);
         JMenuItem load=new JMenuItem("Load");
         ActionListener load_action=new save_load(f, "load");
         load.addActionListener(load_action);
-        
+         KeyStroke keyStrokeToLoad= KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK);
+        load.setAccelerator(keyStrokeToLoad);
+        JMenuItem text=new JMenuItem("Text");
+         KeyStroke keyStrokeToText= KeyStroke.getKeyStroke(KeyEvent.VK_T, KeyEvent.CTRL_DOWN_MASK);
+        text.setAccelerator(keyStrokeToText);
         file.add(save);
         file.add(load);
+        file.add(text);
+        
+        text.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    convertToText.toText(f.getDropPanel());
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(MyMenu.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
         
         JMenuItem undo=new JMenuItem("Undo");
         JMenuItem redo=new JMenuItem("Redo");
